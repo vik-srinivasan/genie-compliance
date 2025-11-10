@@ -1,0 +1,13 @@
+{
+  "n_examples": 32,
+  "accuracy": 1.0,
+  "precision_safe": 1.0,
+  "recall_safe": 1.0,
+  "f1_safe": 1.0,
+  "confusion": {
+    "tp": 22,
+    "tn": 10,
+    "fp": 0,
+    "fn": 0
+  }
+}

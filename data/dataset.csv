@@ -1,0 +1,183 @@
+id,label,code
+0,safe,"// ERC20-like transfer (toy)
+function transfer(address recipient, uint256 amt) public {
+    require(ledger[msg.sender] >= amt, ""LOW_BAL"");
+    balances[recipient] += amt;
+    ledger[msg.sender] -= amt;
+}"
+1,safe,"// ERC20-like transfer (toy)
+function transfer(address dst, uint256 amt) public {
+    require(ledger[msg.sender] >= amt, ""LOW_BAL"");
+    balances[dst] += amt;
+    ledger[msg.sender] -= amt;
+}"
+2,safe,"// ERC20-like transfer (toy)
+function transfer(address to, uint256 amount) public {
+    require(balanceOf[msg.sender] >= amount, ""LOW_BAL"");
+    balances[to] += amount;
+    balanceOf[msg.sender] -= amount;
+}"
+3,unsafe,"// ERC20-like transfer (toy)
+function transfer(address recipient, uint256 value) public {
+    balances[recipient] += value;
+    balances[msg.sender] -= value;
+}"
+4,unsafe,"// ERC20-like transfer (toy)
+function transfer(address to, uint256 value) public {
+    balances[to] += value;
+    ledger[msg.sender] -= value;
+}"
+5,unsafe,"// ERC20-like transfer (toy)
+function transfer(address to, uint256 amount) public {
+    balances[msg.sender] -= amount;
+    balances[to] += amount;
+}"
+6,safe,"// ERC20-like transfer (toy)
+function transfer(address recipient, uint256 amt) public {
+    require(balances[msg.sender] >= amt, ""Insufficient"");
+    balances[recipient] += amt;
+    balances[msg.sender] -= amt;
+}"
+7,safe,"// ERC20-like transfer (toy)
+function transfer(address recipient, uint256 value) public {
+    require(balances[msg.sender] >= value, ""Insufficient"");
+    balances[msg.sender] -= value;
+    balances[recipient] += value;
+}"
+8,safe,"// ERC20-like transfer (toy)
+function transfer(address recipient, uint256 amt) public {
+    require(ledger[msg.sender] >= amt, ""LOW_BAL"");
+    balances[recipient] += amt;
+    ledger[msg.sender] -= amt;
+}"
+9,unsafe,"// ERC20-like transfer (toy)
+function transfer(address recipient, uint256 amt) public {
+    balances[recipient] += amt;
+    ledger[msg.sender] -= amt;
+}"
+10,unsafe,"// ERC20-like transfer (toy)
+function transfer(address dst, uint256 amount) public {
+    balances[dst] += amount;
+    balances[msg.sender] -= amount;
+}"
+11,safe,"// ERC20-like transfer (toy)
+function transfer(address to, uint256 amt) public {
+    require(balanceOf[msg.sender] >= amt, ""Not enough balance"");
+    balances[to] += amt;
+    balanceOf[msg.sender] -= amt;
+}"
+12,safe,"// ERC20-like transfer (toy)
+function transfer(address recipient, uint256 amount) public {
+    require(balances[msg.sender] >= amount, ""Insufficient"");
+    balances[recipient] += amount;
+    balances[msg.sender] -= amount;
+}"
+13,safe,"// ERC20-like transfer (toy)
+function transfer(address dst, uint256 value) public {
+    require(balances[msg.sender] >= value, ""Not enough balance"");
+    balances[dst] += value;
+    balances[msg.sender] -= value;
+}"
+14,safe,"// ERC20-like transfer (toy)
+function transfer(address recipient, uint256 amt) public {
+    require(balances[msg.sender] >= amt, ""Not enough balance"");
+    balances[recipient] += amt;
+    balances[msg.sender] -= amt;
+}"
+15,unsafe,"// ERC20-like transfer (toy)
+function transfer(address to, uint256 amount) public {
+    balances[to] += amount;
+    balances[msg.sender] -= amount;
+}"
+16,safe,"// ERC20-like transfer (toy)
+function transfer(address to, uint256 amt) public {
+    require(balanceOf[msg.sender] >= amt, ""LOW_BAL"");
+    balances[to] += amt;
+    balanceOf[msg.sender] -= amt;
+}"
+17,safe,"// ERC20-like transfer (toy)
+function transfer(address to, uint256 value) public {
+    require(balances[msg.sender] >= value, ""Insufficient"");
+    balances[to] += value;
+    balances[msg.sender] -= value;
+}"
+18,safe,"// ERC20-like transfer (toy)
+function transfer(address to, uint256 amount) public {
+    require(balanceOf[msg.sender] >= amount, ""Insufficient"");
+    balances[to] += amount;
+    balanceOf[msg.sender] -= amount;
+}"
+19,unsafe,"// ERC20-like transfer (toy)
+function transfer(address to, uint256 amt) public {
+    ledger[msg.sender] -= amt;
+    balances[to] += amt;
+}"
+20,safe,"// ERC20-like transfer (toy)
+function transfer(address dst, uint256 value) public {
+    require(ledger[msg.sender] >= value, ""Not enough balance"");
+    ledger[msg.sender] -= value;
+    balances[dst] += value;
+}"
+21,safe,"// ERC20-like transfer (toy)
+function transfer(address to, uint256 amt) public {
+    require(balanceOf[msg.sender] >= amt, ""LOW_BAL"");
+    balanceOf[msg.sender] -= amt;
+    balances[to] += amt;
+}"
+22,safe,"// ERC20-like transfer (toy)
+function transfer(address to, uint256 amount) public {
+    require(balances[msg.sender] >= amount, ""Not enough balance"");
+    balances[to] += amount;
+    balances[msg.sender] -= amount;
+}"
+23,safe,"// ERC20-like transfer (toy)
+function transfer(address recipient, uint256 amt) public {
+    require(ledger[msg.sender] >= amt, ""LOW_BAL"");
+    ledger[msg.sender] -= amt;
+    balances[recipient] += amt;
+}"
+24,unsafe,"// ERC20-like transfer (toy)
+function transfer(address to, uint256 value) public {
+    balances[to] += value;
+    balanceOf[msg.sender] -= value;
+}"
+25,safe,"// ERC20-like transfer (toy)
+function transfer(address to, uint256 amt) public {
+    require(balances[msg.sender] >= amt, ""LOW_BAL"");
+    balances[msg.sender] -= amt;
+    balances[to] += amt;
+}"
+26,safe,"// ERC20-like transfer (toy)
+function transfer(address dst, uint256 value) public {
+    require(ledger[msg.sender] >= value, ""Not enough balance"");
+    balances[dst] += value;
+    ledger[msg.sender] -= value;
+}"
+27,safe,"// ERC20-like transfer (toy)
+function transfer(address to, uint256 value) public {
+    require(balanceOf[msg.sender] >= value, ""Insufficient"");
+    balanceOf[msg.sender] -= value;
+    balances[to] += value;
+}"
+28,safe,"// ERC20-like transfer (toy)
+function transfer(address to, uint256 amt) public {
+    require(ledger[msg.sender] >= amt, ""LOW_BAL"");
+    balances[to] += amt;
+    ledger[msg.sender] -= amt;
+}"
+29,safe,"// ERC20-like transfer (toy)
+function transfer(address recipient, uint256 amt) public {
+    require(ledger[msg.sender] >= amt, ""LOW_BAL"");
+    ledger[msg.sender] -= amt;
+    balances[recipient] += amt;
+}"
+30,unsafe,"// ERC20-like transfer (toy)
+function transfer(address to, uint256 amount) public {
+    balances[msg.sender] -= amount;
+    balances[to] += amount;
+}"
+31,unsafe,"// ERC20-like transfer (toy)
+function transfer(address to, uint256 value) public {
+    ledger[msg.sender] -= value;
+    balances[to] += value;
+}"

@@ -1,0 +1,8 @@
+Detected balance check via require(... >= ...) on line 3.
+
+// ERC20-like transfer (toy)
+function transfer(address recipient, uint256 amt) public {
+    require(ledger[msg.sender] >= amt, "LOW_BAL");
+    balances[recipient] += amt;
+    ledger[msg.sender] -= amt;
+}
