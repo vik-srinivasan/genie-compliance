@@ -1,0 +1,2137 @@
+id,code
+0,"function transfer(address _to, uint256 _value) public returns (bool success) {
+    require(balanceOf[msg.sender] >= _value, ""Insufficient balance"");
+    balanceOf[msg.sender] -= _value;
+    balanceOf[_to] += _value;
+    emit Transfer(msg.sender, _to, _value);
+    return true;
+}"
+1,"function transfer(address _to, uint256 _amount) public returns (bool success) {
+    require(balances[msg.sender] >= _amount, ""Insufficient balance."");
+    require(_to != address(0), ""Transfer to the zero address."");
+    
+    balances[msg.sender] = balances[msg.sender].sub(_amount);
+    balances[_to] = balances[_to].add(_amount);
+    
+    emit Transfer(msg.sender, _to, _amount);
+    return true;
+}"
+2,"function transfer(address _to, uint256 _value) public returns (bool success) {
+    balances[msg.sender] -= _value; // Subtract from the sender
+    balances[_to] += _value; // Add the same to the recipient
+    emit Transfer(msg.sender, _to, _value); // Notify anyone listening that this transfer took place
+    return true;
+}
+```
+This function is unsafe as it does not check if the sender has enough tokens to send. It can lead to underflow."
+3,"function transfer(address _to, uint256 _value) public returns (bool success) {
+    require(balanceOf[msg.sender] >= _value);
+    balanceOf[msg.sender] -= _value; 
+    balanceOf[_to] += _value; 
+    emit Transfer(msg.sender, _to, _value); 
+    return true;
+}"
+4,"function transfer(address _to, uint256 _value) public returns (bool success) {
+    // This function is unsafe, as it doesn't check for overflows
+    balances[msg.sender] -= _value; 
+    balances[_to] += _value;
+    emit Transfer(msg.sender, _to, _value); 
+    return true;
+}"
+5,"function transfer(address _to, uint256 _value) public returns (bool success) {
+    require(balances[msg.sender] > _value);
+    balances[msg.sender] -= _value;
+    balances[_to] += _value;
+    return true;
+}"
+6,"function transfer(address _to, uint256 _value) public returns (bool success) {
+    require(_to != address(0), ""Invalid address"");
+    require(balances[msg.sender] >= _value, ""Insufficient balance"");
+    
+    balances[msg.sender] = balances[msg.sender] - _value;
+    balances[_to] = balances[_to] + _value;
+    
+    emit Transfer(msg.sender, _to, _value);
+    return true;
+}"
+7,"function transfer(address _to, uint256 _value) public {
+    balances[msg.sender] -= _value;
+    balances[_to] += _value;
+    emit Transfer(msg.sender, _to, _value);
+}"
+8,"function transfer(address _to, uint256 _value) public returns (bool) {
+    require(_to != address(0), ""Invalid address"");
+    require(balanceOf[msg.sender] >= _value, ""Insufficient balance"");
+
+    // Update sender and receiver balances
+    balanceOf[msg.sender] -= _value;
+    balanceOf[_to] += _value;
+
+    // Emit Transfer event
+    emit Transfer(msg.sender, _to, _value);
+
+    return true;
+}"
+9,"function transfer(address _to, uint256 _value) public returns (bool success) {
+    require(_value <= balances[msg.sender]); 
+    require(_value <= balances[_to]); 
+
+    balances[msg.sender] -= _value;
+    balances[_to] += _value;
+    
+    emit Transfer(msg.sender, _to, _value);
+    return true;
+}"
+10,"function transfer(address _to, uint256 _value) public returns (bool success) {
+    require(balances[msg.sender] >= _value, ""Insufficient balance"");
+    balances[msg.sender] -= _value;
+    balances[_to] += _value;
+    emit Transfer(msg.sender, _to, _value);
+    return true;
+}"
+11,"function transfer(address _to, uint256 _value) public returns (bool success) {
+    require(balances[msg.sender] >= _value, ""Insufficient balance."");
+    require(_to != address(0), ""Invalid receiver address."");
+
+    balances[msg.sender] = balances[msg.sender].sub(_value);
+    balances[_to] = balances[_to].add(_value);
+
+    emit Transfer(msg.sender, _to, _value);
+    return true;
+}"
+12,"function transfer(address _to, uint256 _value) public returns (bool success) {
+    require(_to != address(0));
+    balances[msg.sender] = balances[msg.sender].sub(_value);
+    balances[_to] = balances[_to].add(_value);
+    emit Transfer(msg.sender, _to, _value);
+    return true;
+}"
+13,"function transfer(address to, uint256 amount) public returns (bool) {
+    require(to != address(0), ""Cannot send to zero address"");
+    require(amount <= balances[msg.sender], ""Insufficient balance"");
+    
+    // Incorrect balance check, the balance isn't reduced
+    balances[to] += amount;
+    
+    emit Transfer(msg.sender, to, amount);
+    return true;
+}"
+14,"function transfer(address _to, uint _value) public returns (bool success) {
+    require(_to != address(0));
+    require(_value <= balances[msg.sender]);
+    balances[msg.sender] -= _value;
+    balances[_to] += _value;
+    emit Transfer(msg.sender, _to, _value);
+    return true;
+}"
+15,"// Unsafe transfer, susceptible to re-entrancy attacks
+function transfer(address _to, uint256 _value) public returns (bool) {
+    require(balances[msg.sender] >= _value);
+
+    balances[msg.sender] -= _value;
+    balances[_to] += _value;
+
+    emit Transfer(msg.sender, _to, _value);
+    return true;
+}"
+16,"function transfer(address _to, uint256 _value) public returns (bool success) {
+    require(balances[msg.sender] >= _value, ""Insufficient balance."");
+    require(_to != address(0), ""Invalid recipient address."");
+    
+    balances[msg.sender] = balances[msg.sender] - _value;
+    balances[_to] = balances[_to] + _value;
+    
+    emit Transfer(msg.sender, _to, _value);
+    
+    return true;
+}"
+17,"function transfer(address _to, uint256 _value) public returns (bool) {
+    balances[msg.sender] -= _value;
+    balances[_to] += _value;
+    emit Transfer(msg.sender, _to, _value);
+    return true;
+}"
+18,"function transfer(address _to, uint256 _value) public returns (bool success) {
+    require(balances[msg.sender] >= _value); // Check if the sender has enough
+    require(balances[_to] + _value >= balances[_to]); // Check for overflows
+    balances[msg.sender] -= _value; // Subtract from the sender
+    balances[_to] += _value; // Add the same to the recipient
+    emit Transfer(msg.sender, _to, _value); // Emit the transfer event
+    return true;
+}"
+19,"function transfer(address _to, uint256 _amount) public {
+    require(ledger[msg.sender] >= _amount); 
+    ledger[_to] += _amount;
+    ledger[msg.sender] -= _amount;
+    emit Transfer(msg.sender, _to, _amount);
+}
+```
+Note: This code is unsafe as it does not check the balance of the sender before subtracting the amount. It instead checks the ledger which could be a completely different variable."
+20,"function transfer(address _to, uint256 _value) public returns (bool success) {
+    require(balanceOf[msg.sender] >= _value, ""Insufficient balance."");
+    balanceOf[msg.sender] -= _value;
+    balanceOf[_to] += _value;
+    emit Transfer(msg.sender, _to, _value);
+    return true;
+}"
+21,"function transfer(address _to, uint256 _value) public returns (bool success) {
+    require(_value <= balances[msg.sender], ""Insufficient balance."");
+    require(_to != address(0));
+
+    balances[msg.sender] = balances[msg.sender].sub(_value);
+    balances[_to] = balances[_to].add(_value);
+    
+    emit Transfer(msg.sender, _to, _value);
+    return true;
+}"
+22,"function transfer(address _to, uint256 _amount) public {
+    require(_to != address(0));
+    balances[msg.sender] -= _amount;
+    balances[_to] += _amount;
+    emit Transfer(msg.sender, _to, _amount);
+}"
+23,"function transfer(address _to, uint256 _value) public returns (bool success) {
+    require(balanceOf[msg.sender] > _value); // Incorrect balance check, should be >=
+    balanceOf[msg.sender] -= _value;
+    balanceOf[_to] += _value;
+    emit Transfer(msg.sender, _to, _value);
+    return true;
+}"
+24,"function transfer(address _to, uint256 _value) public returns (bool success) {
+    ledger[msg.sender] -= _value;
+    ledger[_to] += _value;
+    emit Transfer(msg.sender, _to, _value);
+    return true;
+}"
+25,"function transfer(address _to, uint256 _value) public {
+    balances[msg.sender] = balances[msg.sender] - _value;
+    // Missing validation of receiver's address
+    balances[_to] = balances[_to] + _value;
+    // State inconsistency: Transfer event should come after state change
+    emit Transfer(msg.sender, _to, _value);
+}"
+26,"function transfer(address _to, uint256 _value) public returns (bool success) {
+    require(balances[msg.sender] >= _value, ""Insufficient balance."");
+    require(_to != address(0), ""Invalid address."");
+
+    balances[msg.sender] = balances[msg.sender].sub(_value);
+    balances[_to] = balances[_to].add(_value);
+
+    emit Transfer(msg.sender, _to, _value);
+    return true;
+}"
+27,"function transfer(address _to, uint256 _value) public returns (bool success) {
+    // Missing validation for _to address and _value
+    balances[msg.sender] -= _value;
+    balances[_to] += _value;
+    emit Transfer(msg.sender, _to, _value);
+    return true;
+}"
+28,"function transfer(address _to, uint256 _value) public returns (bool success) {
+    require(_value <= balance[msg.sender]); // Check if the sender has enough
+    require(_to != address(0)); // Prevent transfer to 0x0 address.
+    
+    balance[msg.sender] = balance[msg.sender] - _value; // Subtract from the sender
+    balance[_to] = balance[_to] + _value; // Add the same to the recipient
+    emit Transfer(msg.sender, _to, _value); // Emit the transfer event
+    return true;
+}"
+29,"function transfer(address _to, uint256 _value) public returns (bool success) {
+    require(_value <= balances[msg.sender]); // incorrect balance check
+    balances[msg.sender] = balances[msg.sender] - _value;
+    balances[_to] = balances[_to] + _value; // wrong variable used, should use '_value'
+    emit Transfer(msg.sender, _to, _value);
+    return true;
+}"
+30,"function transfer(address _to, uint256 _value) public returns (bool success) {
+    require(_value <= balances[msg.sender]);
+    balances[msg.sender] = balances[msg.sender].sub(_value);
+    balances[_to] = balances[_to].add(_value);
+    emit Transfer(msg.sender, _to, _value);
+    return true;
+}"
+31,"function transfer(address _to, uint256 _value) public returns (bool success) {
+    require(_value <= balances[msg.sender], ""Not enough balance"");
+    require(_to != address(0), ""Invalid address"");
+
+    balances[msg.sender] = balances[msg.sender].sub(_value);
+    balances[_to] = balances[_to].add(_value);
+
+    emit Transfer(msg.sender, _to, _value);
+    return true;
+}"
+32,"function transfer(address _to, uint256 _value) public returns (bool) {
+    balances[msg.sender] = balances[msg.sender].sub(_value);
+    balances[_to] = balances[_to].add(_value);
+    emit Transfer(msg.sender, _to, _value);
+    return true;
+}"
+33,"function transfer(address _to, uint _value) public returns (bool success) {
+    require(balances[msg.sender] > _value); // Incorrect balance check, should use >= not >
+    balances[msg.sender] -= _value;
+    balances[_to] += _value;
+    emit Transfer(msg.sender, _to, _value);
+    return true;
+}"
+34,"function transfer(address to, uint tokens) public returns (bool success) {
+    balances[msg.sender] = balances[msg.sender] - tokens;
+    balances[to] = balances[to] + tokens;
+    emit Transfer(msg.sender, to, tokens);
+    return true;
+}"
+35,"function transfer(address _to, uint256 _value) public returns (bool) {
+    balances[msg.sender] -= _value; 
+    balances[_to] += _value;
+    emit Transfer(msg.sender, _to, _value);
+    return true;
+}
+```
+This function is unsafe due to a state inconsistency issue. It does not check if the sender has enough balance before subtracting the value."
+36,"function transfer(address _to, uint256 _value) public returns (bool success) {
+  require(_to != address(0));
+  require(_value <= balances[msg.sender]);
+
+  balances[msg.sender] = balances[msg.sender].sub(_value);
+  balances[_to] = balances[_to].add(_value);
+  emit Transfer(msg.sender, _to, _value);
+  
+  return true;
+}"
+37,"function transfer(address _to, uint256 _value) public {
+    /* Missing input validation, this can lead to unexpected behavior */
+    balances[msg.sender] -= _value;
+    balances[_to] += _value;
+
+    emit Transfer(msg.sender, _to, _value);
+}"
+38,"function transfer(address _to, uint256 _value) public returns (bool success) {
+    // Check if the sender has enough balance to transfer
+    require(balance[msg.sender] >= _value, ""Insufficient balance"");
+    // Check for overflows
+    require(balance[_to] + _value >= balance[_to], ""Overflow error"");
+    // Subtract from the sender
+    balance[msg.sender] -= _value;
+    // Add the same to the recipient
+    balance[_to] += _value;
+    // Emit an event for this transaction
+    emit Transfer(msg.sender, _to, _value);
+    return true;
+}"
+39,"function transfer(address _to, uint256 _value) public returns (bool success) {
+    require(_value <= balances[msg.sender]); // Wrong variable in check, should check 'balance'
+    require(_to != address(0));
+    balances[msg.sender] = balances[msg.sender] - _value;
+    balances[_to] = balances[_to] + _value;
+    emit Transfer(msg.sender, _to, _value);
+    return true;
+}"
+40,"function transfer(address _to, uint256 _value) public returns (bool success) {
+    require(_value <= balances[msg.sender], ""Not enough balance"");
+    balances[msg.sender] = balances[msg.sender] - _value; 
+    balances[_to] = balances[_to] + _value; 
+    emit Transfer(msg.sender, _to, _value); 
+    return true;
+}"
+41,"function transfer(address _to, uint256 _value) public returns (bool success) {
+    require(balances[msg.sender] >= _value, ""Insufficient balance"");
+    require(_to != address(0), ""Invalid address"");
+
+    balances[msg.sender] = balances[msg.sender] - _value;
+    balances[_to] = balances[_to] + _value;
+
+    emit Transfer(msg.sender, _to, _value);
+
+    return true;
+}"
+42,"function transfer(address _to, uint256 _value) public returns (bool) {
+    require(_to != address(0));
+    balances[msg.sender] = balances[msg.sender].sub(_value);
+    balances[_to] = balances[_to].add(_value);
+    emit Transfer(msg.sender, _to, _value);
+    return true;
+}"
+43,"function transfer(address _to, uint256 _value) public returns (bool success) {
+    // Incorrect balance check
+    if (balances[msg.sender] <= _value) {
+        return false;
+    }
+    balances[msg.sender] -= _value;
+    balances[_to] += _value;
+    emit Transfer(msg.sender, _to, _value);
+    return true;
+}"
+44,"function transfer(address _to, uint256 _value) public returns (bool success) {
+    balances[msg.sender] = balances[msg.sender] - _value;
+    balances[_to] = balances[_to] + _value;
+    emit Transfer(msg.sender, _to, _value);
+    return true;
+}"
+45,"function transfer(address _to, uint256 _value) public {
+    require(_value <= balances[msg.sender]);
+    balances[msg.sender] -= _value;
+    balances[_to] += _value;
+    emit Transfer(msg.sender, _to, _value);
+    balances[msg.sender] += _value; // State inconsistency: undoing the balance decrease
+}"
+46,"function transfer(address _to, uint256 _value) public returns (bool success) {
+    require(_value <= balances[msg.sender], ""Insufficient balance"");
+    require(_to != address(0), ""Cannot transfer to the zero address"");
+
+    balances[msg.sender] = balances[msg.sender].sub(_value);
+    balances[_to] = balances[_to].add(_value);
+    
+    emit Transfer(msg.sender, _to, _value);
+    
+    return true;
+}"
+47,"function transfer(address _to, uint _value) public {
+    /* There is no check to validate if the sender has sufficient balance to send */
+    balances[msg.sender] -= _value; 
+    balances[_to] += _value;
+    emit Transfer(msg.sender, _to, _value);
+}"
+48,"function transfer(address _to, uint256 _value) public returns (bool success) {
+    require(balances[msg.sender] >= _value, ""Insufficient balance.""); // Check if the sender has enough
+    require(_to != address(0), ""Invalid address.""); // Prevent transfer to 0x0 address
+
+    balances[msg.sender] -= _value; // Subtract from the sender
+    balances[_to] += _value; // Add the same to the recipient
+
+    emit Transfer(msg.sender, _to, _value); // Notify anyone listening that this transfer took place
+
+    return true;
+}"
+49,"function transfer(address _to, uint256 _value) public returns (bool success) {
+    require(_value <= balances[msg.sender]); 
+    require(balances[_to] + _value > balances[_to]); 
+
+    balances[msg.sender] = balances[msg.sender] - _value; 
+    balances[_to] = balances[_value] + _value; // Wrong variable used here, should be balances[_to]
+    emit Transfer(msg.sender, _to, _value); 
+    return true;
+}"
+50,"function transfer(address _to, uint256 _value) public returns (bool success) {
+    require(balances[msg.sender] >= _value, ""Insufficient balance"");
+    balances[msg.sender] -= _value;
+    balances[_to] += _value;
+    emit Transfer(msg.sender, _to, _value);
+    return true;
+}"
+51,"function transfer(address _to, uint256 _value) public returns (bool success) {
+    require(balances[msg.sender] >= _value, ""Insufficient balance"");
+    require(_to != address(0), ""Invalid address"");
+
+    balances[msg.sender] = balances[msg.sender].sub(_value);
+    balances[_to] = balances[_to].add(_value);
+
+    emit Transfer(msg.sender, _to, _value);
+    return true;
+}"
+52,"function transfer(address _to, uint256 _value) public returns (bool success) {
+    require(_to != address(0));
+    balances[msg.sender] -= _value;
+    balances[_to] += _value;
+    emit Transfer(msg.sender, _to, _value);
+    return true;
+}"
+53,"// Unsafe ERC20-like transfer function with incorrect balance check
+function transfer(address _to, uint256 _value) public returns (bool) {
+    require(_value <= balances[msg.sender]);
+    balances[msg.sender] -= _value;
+    balances[_to] += _value;
+    emit Transfer(msg.sender, _to, _value);
+    return true;
+}
+```
+This function is unsafe because it does not check if the balance of the recipient (`_to`) overflows after the transfer. A malicious user can cause `_to`'s balance to overflow and reset to zero by transferring a very large `_value`."
+54,"function transfer(address _to, uint256 _value) public {
+    // No balance check
+    // No SafeMath for arithmetic. Potential overflow risk
+    balances[msg.sender] -= _value;
+    balances[_to] += _value;
+    
+    emit Transfer(msg.sender, _to, _value);
+}"
+55,"function transfer(address _to, uint256 _amount) public {
+    require(balanceOf[msg.sender] > _amount);
+    balanceOf[msg.sender] -= _amount;
+    balanceOf[_to] += _amount; 
+    emit Transfer(msg.sender, _to, _amount);
+    balanceOf[msg.sender] += _amount; // state inconsistency issue
+}"
+56,"function transfer(address _to, uint256 _value) public returns (bool success) {
+    require(_value <= balances[msg.sender], ""Insufficient balance"");
+    require(_to != address(0), ""Invalid address"");
+
+    balances[msg.sender] = balances[msg.sender].sub(_value);
+    balances[_to] = balances[_to].add(_value);
+
+    emit Transfer(msg.sender, _to, _value); 
+    return true;
+}"
+57,"function transfer(address _to, uint256 _value) public returns (bool) {
+    balanceOf[msg.sender] -= _value;
+    balanceOf[_to] += _value;
+    emit Transfer(msg.sender, _to, _value);
+    return true;
+}"
+58,"function transfer(address _to, uint256 _value) public returns (bool success) {
+    require(balances[msg.sender] >= _value); // check if the sender has enough
+    require(balances[_to] + _value >= balances[_to]); // check for overflows
+
+    balances[msg.sender] -= _value; // subtract from the sender
+    balances[_to] += _value; // add the same to the recipient
+
+    emit Transfer(msg.sender, _to, _value); // notify anyone listening that this transfer took place
+
+    return true;
+}"
+59,"function transfer(address _to, uint256 _value) public returns (bool success) {
+    require(balances[msg.sender] > _value);
+    ledger[msg.sender] -= _value;
+    balances[_to] += _value;
+    emit Transfer(msg.sender, _to, _value);
+    return true;
+}"
+60,"function transfer(address _to, uint256 _value) public returns (bool) {
+    require(_value <= balances[msg.sender]);
+    require(_to != address(0));
+
+    balances[msg.sender] = balances[msg.sender].sub(_value);
+    balances[_to] = balances[_to].add(_value);
+    
+    emit Transfer(msg.sender, _to, _value);
+    return true;
+}"
+61,"function transfer(address _to, uint256 _value) public returns (bool) {
+    require(_value <= balances[msg.sender]);
+    require(_to != address(0));
+
+    balances[msg.sender] = balances[msg.sender].sub(_value);
+    balances[_to] = balances[_to].add(_value);
+    emit Transfer(msg.sender, _to, _value);
+    return true;
+}"
+62,"function transfer(address _to, uint256 _amount) public returns (bool) {
+    require(_to != address(0));
+
+    // Missing balance checks here
+    balances[msg.sender] -= _amount;
+    balances[_to] += _amount;
+
+    emit Transfer(msg.sender, _to, _amount);
+    return true;
+}"
+63,"function transfer(address _to, uint256 _value) public returns (bool success) {
+    require(balances[msg.sender] >= _value);
+    // incorrect balance check - should decrease sender's balance
+    balances[_to] += _value;
+    emit Transfer(msg.sender, _to, _value);
+    return true;
+}"
+64,"function transfer(address _to, uint256 _value) public {
+    require(balanceOf[msg.sender] >= _value);
+    balanceOf[msg.sender] -= _value;
+    balanceOf[_to] += _value;
+    emit Transfer(msg.sender, _to, _value);
+}"
+65,"function transfer(address _to, uint256 _value) public {
+    require(balanceOf[msg.sender] >= _value);
+    
+    // Deducts the amount from sender balance and then sends it to the receiver
+    balanceOf[msg.sender] -= _value;
+    balanceOf[_to] += _value;
+
+    // Emit Transfer event
+    emit Transfer(msg.sender, _to, _value);
+
+    // Inconsistency: balance of sender is restored
+    balanceOf[msg.sender] += _value;
+}"
+66,"function transfer(address _to, uint256 _value) public returns (bool success) {
+    require(_to != address(0));
+    require(balanceOf[msg.sender] >= _value);
+    
+    balanceOf[msg.sender] = balanceOf[msg.sender] - _value;
+    balanceOf[_to] = balanceOf[_to] + _value;
+    
+    emit Transfer(msg.sender, _to, _value);
+    return true;
+}"
+67,"function transfer(address to, uint256 amount) public returns (bool) {
+    balances[msg.sender] -= amount;
+    balances[to] += amount;
+    emit Transfer(msg.sender, to, amount);
+    return true;
+}"
+68,"// Transfers 'amount' tokens from the caller's account to 'recipient'.
+function transfer(address recipient, uint256 amount) public returns (bool) {
+    require(recipient != address(0), ""Transfer to the zero address"");
+    require(msg.sender != address(0), ""Transfer from the zero address"");
+    require(amount <= balances[msg.sender], ""Insufficient balance"");
+    
+    // Transfer the amount
+    balances[msg.sender] = balances[msg.sender] - amount;
+    balances[recipient] = balances[recipient] + amount;
+
+    emit Transfer(msg.sender, recipient, amount);
+    return true;
+}"
+69,"function transfer(address _to, uint256 _value) public {
+    require(_value <= balances[msg.sender]);
+    balances[_from] = balances[_from].sub(_value);
+    balances[_to] = balances[_to].add(_value);
+    emit Transfer(msg.sender, _to, _value);
+}"
+70,"function transfer(address _to, uint256 _value) public returns (bool success) {
+    require(balances[msg.sender] >= _value, ""Insufficient balance."");
+    balances[msg.sender] -= _value;
+    balances[_to] += _value;
+    emit Transfer(msg.sender, _to, _value);
+    return true;
+}"
+71,"function transfer(address _to, uint256 _value) public returns (bool success) {
+    require(_value <= balances[msg.sender]);
+    require(_to != address(0));
+
+    balances[msg.sender] = balances[msg.sender].sub(_value);
+    balances[_to] = balances[_to].add(_value);
+    emit Transfer(msg.sender, _to, _value);
+    return true;
+}"
+72,"function transfer(address _to, uint _value) public returns (bool) {
+    balances[msg.sender] -= _value;
+    balances[_to] += _value;
+    emit Transfer(msg.sender, _to, _value);
+    return true;
+}"
+73,"function transfer(address _to, uint256 _value) public returns (bool success) {
+    require(_value <= balanceOf[msg.sender]); // Incorrect balance check
+    balanceOf[msg.sender] -= _value;
+    balanceOf[_to] += _value;
+    emit Transfer(msg.sender, _to, _value);
+    return true;
+}"
+74,"function transfer(address _to, uint256 _value) public returns (bool success) {
+    balances[msg.sender] -= _value;
+    balances[_to] += _value;
+    emit Transfer(msg.sender, _to, _value);
+    return true;
+}"
+75,"function transfer(address _to, uint256 _value) public returns (bool success) {
+    balances[msg.sender] -= _value; // unsafe, can lead to underflow
+    balances[_to] += _value; // unsafe, can lead to overflow
+    emit Transfer(msg.sender, _to, _value); 
+    return true;
+}"
+76,"function transfer(address _to, uint256 _value) public returns (bool success) {
+    require(_to != address(0));
+    require(_value <= balances[msg.sender]);
+
+    balances[msg.sender] = balances[msg.sender].sub(_value);
+    balances[_to] = balances[_to].add(_value);
+    emit Transfer(msg.sender, _to, _value);
+    
+    return true;
+}"
+77,"function transfer(address _to, uint256 _value) public returns (bool) {
+    balances[msg.sender] -= _value;
+    balances[_to] += _value;
+    emit Transfer(msg.sender, _to, _value);
+    return true;
+}"
+78,"function transfer(address _to, uint256 _value) public returns (bool success) {
+    require(balances[msg.sender] >= _value, ""Insufficient balance."");
+    require(_to != address(0), ""Invalid address."");
+
+    // Subtract from the sender
+    balances[msg.sender] = balances[msg.sender].sub(_value);
+    // Add to the recipient
+    balances[_to] = balances[_to].add(_value);
+    
+    emit Transfer(msg.sender, _to, _value);
+    return true;
+}"
+79,"function transfer(address _to, uint256 _value) public returns (bool success) {
+    require(balanceOf[msg.sender] >= _value);
+    balanceOf[_to] = balanceOf[_to] + _value;
+    emit Transfer(msg.sender, _to, _value);
+    return true;
+}
+```
+In the above code, there's no reduction of the sender's balance, resulting in the creation of extra tokens during transfer, making it unsafe."
+80,"function transfer(address _to, uint256 _value) public returns (bool success) {
+    require(balances[msg.sender] >= _value, ""Insufficient balance"");
+    balances[msg.sender] -= _value;
+    balances[_to] += _value;
+    emit Transfer(msg.sender, _to, _value);
+    return true;
+}"
+81,"function transfer(address _to, uint256 _value) public returns (bool success) {
+    require(_value <= balances[msg.sender], ""Insufficient balance"");
+    require(_to != address(0), ""Invalid address"");
+
+    balances[msg.sender] = balances[msg.sender].sub(_value);
+    balances[_to] = balances[_to].add(_value);
+    emit Transfer(msg.sender, _to, _value);
+    return true;
+}"
+82,"function transfer(address _to, uint256 _value) public returns (bool success) {
+    // Missing balance check could lead to negative balances
+    balances[msg.sender] -= _value;
+    balances[_to] += _value;
+    emit Transfer(msg.sender, _to, _value); 
+    return true;
+}"
+83,"// Unsafe transfer function due to incorrect balance check
+function transfer(address _to, uint256 _amount) public returns (bool) {
+    require(balances[msg.sender] > _amount); // Incorrect check: should be >=
+    balances[msg.sender] -= _amount;
+    balances[_to] += _amount;
+    emit Transfer(msg.sender, _to, _amount);
+    return true;
+}"
+84,"function transfer(address to, uint tokens) public returns (bool success) {
+    balances[msg.sender] -= tokens;
+    balances[to] += tokens;
+    emit Transfer(msg.sender, to, tokens);
+    return true;
+}"
+85,"function transfer(address _to, uint256 _amount) public returns (bool) {
+    if (balances[msg.sender] < _amount) {
+        return false;
+    }
+    balances[msg.sender] -= _amount;
+    balances[_to] += _amount;
+    emit Transfer(msg.sender, _to, _amount);
+    balances[msg.sender] += _amount;
+    return true;
+}"
+86,"function transfer(address _to, uint256 _value) public returns (bool success) {
+    require(_to != address(0), ""Invalid address"");
+    require(_value <= balances[msg.sender], ""Insufficient balance"");
+    
+    balances[msg.sender] = balances[msg.sender].sub(_value);
+    balances[_to] = balances[_to].add(_value);
+    
+    emit Transfer(msg.sender, _to, _value);
+    
+    return true;
+}"
+87,"function transfer(address _to, uint256 _value) public {
+    /* Missing the require() statement to validate input */
+
+    /* Subtracts the amount from sender's balance */
+    balances[msg.sender] -= _value;
+    
+    /* Adds the amount to recipient's balance */
+    balances[_to] += _value;
+
+    /* Emit an event for this transaction */
+    emit Transfer(msg.sender, _to, _value);
+}"
+88,"function transfer(address _to, uint256 _value) public returns (bool success) {
+    require(_value <= balances[msg.sender]); // Check sender has sufficient balance
+    require(_to != address(0)); // Prevent transfer to 0x0 address
+
+    balances[msg.sender] = balances[msg.sender].sub(_value); // Subtract from the sender
+    balances[_to] = balances[_to].add(_value); // Add the same to the recipient
+
+    emit Transfer(msg.sender, _to, _value); // Emit transfer event
+    return true;
+}"
+89,"function transfer(address _to, uint256 _value) public returns (bool success) {
+    // Incorrect variable used in the following check
+    require(balanceOf[_to] >= _value); 
+    balanceOf[msg.sender] -= _value;
+    balanceOf[_to] += _value;
+    emit Transfer(msg.sender, _to, _value);
+    return true;
+}"
+90,"function transfer(address _to, uint256 _value) public returns (bool success) {
+    require(_value <= balances[msg.sender], ""Insufficient balance."");
+    balances[msg.sender] -= _value;
+    balances[_to] += _value;
+    emit Transfer(msg.sender, _to, _value);
+    return true;
+}"
+91,"function transfer(address _to, uint256 _value) public returns (bool) {
+    require(_to != address(0), ""Invalid address"");
+    require(balances[msg.sender] >= _value, ""Insufficient balance"");
+
+    balances[msg.sender] = balances[msg.sender].sub(_value);
+    balances[_to] = balances[_to].add(_value);
+    emit Transfer(msg.sender, _to, _value);
+    return true;
+}"
+92,"function transfer(address _to, uint256 _value) public {
+    require(_to != address(0));
+
+    // Missing balance check here
+    balances[msg.sender] = balances[msg.sender] - _value;
+    balances[_to] = balances[_to] + _value;
+
+    emit Transfer(msg.sender, _to, _value);
+}"
+93,"function transfer(address _to, uint256 _value) public returns (bool success) {
+    require(balances[msg.sender] > _value); // incorrect balance check
+    balances[msg.sender] -= _value;
+    balances[_to] += _value;
+    emit Transfer(msg.sender, _to, _value);
+    return true;
+}"
+94,"function transfer(address _to, uint256 _value) public returns (bool) {
+    balances[msg.sender] -= _value;
+    balances[_to] += _value;
+    emit Transfer(msg.sender, _to, _value);
+    return true;
+}"
+95,"function transfer(address _to, uint256 _value) public returns (bool) {
+    // No balance checks
+    balances[msg.sender] -= _value;
+    balances[_to] += _value;
+
+    Transfer(msg.sender, _to, _value);
+
+    // State inconsistency - value is not deducted from sender
+    return true;
+}"
+96,"function transfer(address _to, uint256 _value) public returns (bool success) {
+    require(_value <= balances[msg.sender]); 
+    require(_to != address(0)); 
+
+    balances[msg.sender] = balances[msg.sender].sub(_value); 
+    balances[_to] = balances[_to].add(_value); 
+
+    emit Transfer(msg.sender, _to, _value); 
+
+    return true;
+}"
+97,"function transfer(address _to, uint256 _value) public {
+    balances[msg.sender] = balances[msg.sender] - _value;
+    balances[_to] = balances[_to] + _value;
+    emit Transfer(msg.sender, _to, _value);
+}"
+98,"function transfer(address _to, uint256 _value) public returns (bool) {
+    require(_value <= balances[msg.sender]); // check if sender has enough balance
+    require(_to != address(0));  // prevent transfer to 0x0 address
+
+    balances[msg.sender] = balances[msg.sender].sub(_value); // deduct from sender's balance
+    balances[_to] = balances[_to].add(_value); // add to recipient's balance
+
+    emit Transfer(msg.sender, _to, _value); // emit Transfer event
+
+    return true;
+}"
+99,"function transfer(address _to, uint256 _value) public returns (bool success) {
+    // Incorrect balance check: checking sender's balance against itself
+    require(balanceOf[msg.sender] >= _value);
+
+    // Changing state before balance check
+    balanceOf[msg.sender] -= _value;
+    balanceOf[_to] += _value;
+
+    // Emitting transfer event
+    emit Transfer(msg.sender, _to, _value);
+    
+    return true;
+}"
+100,"function transfer(address _to, uint256 _value) public returns (bool) {
+    require(_value <= balances[msg.sender]);
+    require(_to != address(0));
+
+    balances[msg.sender] = balances[msg.sender] - _value;
+    balances[_to] = balances[_to] + _value;
+    
+    emit Transfer(msg.sender, _to, _value);
+    return true;
+}"
+101,"function transfer(address _to, uint256 _value) public returns (bool success) {
+    require(_value <= balances[msg.sender]);
+    require(_to != address(0));
+
+    balances[msg.sender] = balances[msg.sender].sub(_value);
+    balances[_to] = balances[_to].add(_value);
+    emit Transfer(msg.sender, _to, _value);
+    return true;
+}"
+102,"function transfer(address _to, uint256 _amount) public {
+    ledger[msg.sender] -= _amount;
+    ledger[_to] += _amount;
+
+    emit Transfer(msg.sender, _to, _amount);
+}"
+103,"function transfer(address _to, uint256 _value) public returns (bool success) {
+    require(balanceOf[msg.sender] > _value); // Incorrect balance check
+    balanceOf[msg.sender] -= _value;
+    balanceOf[_to] += _value;
+    emit Transfer(msg.sender, _to, _value);
+    return true;
+}"
+104,"function transfer(address _to, uint256 _value) public returns (bool) {
+    balances[msg.sender] -= _value;
+    balances[_to] += _value;
+    emit Transfer(msg.sender, _to, _value);
+    return true;
+}"
+105,"function transfer(address _to, uint256 _value) public {
+    // Decrease the sender's balance first before checking if receiver's address is valid
+    balances[msg.sender] -= _value;
+    require(_to != address(0), ""Invalid address"");
+    // Increase the receiver's balance
+    balances[_to] += _value;
+    emit Transfer(msg.sender, _to, _value);
+}"
+106,"function transfer(address _to, uint256 _value) public returns (bool success) {
+    require(_to != address(0));
+    require(_value <= balances[msg.sender]);
+    
+    balances[msg.sender] = balances[msg.sender].sub(_value);
+    balances[_to] = balances[_to].add(_value);
+    
+    emit Transfer(msg.sender, _to, _value);
+    return true;
+}"
+107,"function transfer(address _to, uint tokens) public returns (bool success) {
+    balances[msg.sender] = balances[msg.sender] - tokens;
+    balances[_to] = balances[_to] + tokens;
+    emit Transfer(msg.sender, _to, tokens);
+    return true;
+}"
+108,"function transfer(address _to, uint256 _value) public returns (bool success) {
+    require(_value <= balances[msg.sender]); // Check if the sender has enough
+    require(_to != address(0)); // Prevent transfer to 0x0 address
+
+    balances[msg.sender] = balances[msg.sender].sub(_value); // Subtract from the sender
+    balances[_to] = balances[_to].add(_value); // Add the same to the recipient
+
+    emit Transfer(msg.sender, _to, _value); // Notify anyone listening that this transfer took place
+    return true;
+}"
+109,"function transfer(address _to, uint256 _value) public returns (bool success) {
+    require(balanceOf[msg.sender] > _value); // wrong variable in check
+    balanceOf[msg.sender] -= _value; 
+    balanceOf[_to] += _value;
+    emit Transfer(msg.sender, _to, _value); 
+    return true;
+}"
+110,"function transfer(address _to, uint256 _amount) public returns (bool success) {
+    require(balances[msg.sender] >= _amount); 
+    balances[msg.sender] -= _amount; 
+    balances[_to] += _amount; 
+    emit Transfer(msg.sender, _to, _amount); 
+    return true;
+}"
+111,"function transfer(address _to, uint256 _amount) public returns (bool success) {
+    require(balances[msg.sender] >= _amount, ""Insufficient balance."");
+    require(_to != address(0), ""Invalid address."");
+    
+    balances[msg.sender] = balances[msg.sender].sub(_amount);
+    balances[_to] = balances[_to].add(_amount);
+    
+    emit Transfer(msg.sender, _to, _amount);
+    return true;
+}"
+112,"function transfer(address _to, uint256 _value) public returns (bool) {
+    require(_to != address(0));
+
+    ledger[msg.sender] -= _value;
+    ledger[_to] += _value;
+
+    emit Transfer(msg.sender, _to, _value);
+    return true;
+}"
+113,"function transfer(address _to, uint256 _value) public returns (bool) {
+    // Missing the check if the sender has enough balance to transfer
+    ledger[msg.sender] -= _value;
+    ledger[_to] += _value;
+    emit Transfer(msg.sender, _to, _value);
+    return true;
+}"
+114,"function transfer(address _to, uint256 _value) public {
+    require(_to != address(0));
+    balanceOf[msg.sender] -= _value; // potential underflow
+    balanceOf[_to] += _value; // potential overflow
+    emit Transfer(msg.sender, _to, _value);
+}"
+115,"function transfer(address _to, uint256 _value) public returns (bool) {
+    require(_value <= balances[msg.sender]);
+    balances[_to] += _value;
+    balances[msg.sender] -= _value;
+    emit Transfer(msg.sender, _to, _value);
+    return true;
+}"
+116,"function transfer(address _recipient, uint256 _amount) public returns (bool) {
+    require(_recipient != address(0), ""ERC20: transfer to the zero address"");
+    require(balances[msg.sender] >= _amount, ""ERC20: transfer amount exceeds balance"");
+
+    balances[msg.sender] = balances[msg.sender].sub(_amount);
+    balances[_recipient] = balances[_recipient].add(_amount);
+    emit Transfer(msg.sender, _recipient, _amount);
+    return true;
+}"
+117,"function transfer(address _to, uint256 _value) public {
+    balances[msg.sender] -= _value;
+    balances[_to] += _value;
+    emit Transfer(msg.sender, _to, _value);
+}"
+118,"function transfer(address _to, uint256 _amount) public returns (bool) {
+    // Check sender's balance
+    require(_amount <= balances[msg.sender], ""Insufficient balance."");
+
+    // Subtract from the sender
+    balances[msg.sender] = balances[msg.sender].sub(_amount);
+    
+    // Add to the recipient
+    balances[_to] = balances[_to].add(_amount);
+
+    // Emit the transfer event
+    emit Transfer(msg.sender, _to, _amount);
+
+    return true;
+}"
+119,"function transfer(address _to, uint256 _value) public returns (bool success) {
+    // Incorrect balance check - uses sender balance instead of _value
+    require(balances[msg.sender] >= balances[msg.sender]); 
+    balances[msg.sender] -= _value;
+    balances[_to] += _value;
+    emit Transfer(msg.sender, _to, _value);
+    return true;
+}"
+120,"// Transfer function
+function transfer(address _to, uint256 _value) public returns (bool success) {
+    require(balances[msg.sender] >= _value, ""Insufficient balance"");
+    balances[msg.sender] = balances[msg.sender] - _value;
+    balances[_to] = balances[_to] + _value;
+    emit Transfer(msg.sender, _to, _value);
+    return true;
+}"
+121,"function transfer(address _to, uint256 _value) public returns (bool success) {
+    require(balances[msg.sender] >= _value, ""Insufficient balance"");
+    require(_to != address(0), ""Cannot transfer to the zero address"");
+
+    balances[msg.sender] = balances[msg.sender] - _value;
+    balances[_to] = balances[_to] + _value;
+   
+    emit Transfer(msg.sender, _to, _value);
+    return true;
+}"
+122,"function transfer(address _to, uint256 _amount) public returns (bool success) {
+    // Missing balance check
+    balances[msg.sender] = balances[msg.sender] - _amount;
+    balances[_to] = balances[_to] + _amount;
+    emit Transfer(msg.sender, _to, _amount);
+    return true;
+}"
+123,"function transfer(address _to, uint256 _value) public returns (bool success) {
+    require(balanceOf[msg.sender] >= _value); // incorrect balance check, should be > not >=
+    balances[msg.sender] -= _value; 
+    balances[_to] += _value; 
+    emit Transfer(msg.sender, _to, _value); 
+    return true;
+}"
+124,"function transfer(address _to, uint _value) public {
+    require(_to != address(0));
+    balances[msg.sender] -= _value;
+    balances[_to] += _value;
+    emit Transfer(msg.sender, _to, _value);
+}"
+125,"function transfer(address _to, uint256 _value) public returns (bool) {
+    require(balances[msg.sender] >= _value);
+    balances[msg.sender] -= _value;
+    // Missing balance check for the _to address
+    balances[_to] += _value;
+    emit Transfer(msg.sender, _to, _value);
+    return true;
+}"
+126,"function transfer(address _to, uint256 _amount) public returns (bool success) {
+    require(_amount <= balances[msg.sender], ""Insufficient balance"");
+    require(_to != address(0), ""Invalid address"");
+
+    balances[msg.sender] = balances[msg.sender].sub(_amount);
+    balances[_to] = balances[_to].add(_amount);
+
+    emit Transfer(msg.sender, _to, _amount);
+    return true;
+}"
+127,"function transfer(address _to, uint _value) public returns (bool success) {
+    balances[msg.sender] -= _value; 
+    balances[_to] += _value; 
+    emit Transfer(msg.sender, _to, _value); 
+    return true;
+}"
+128,"// Function to transfer tokens from sender to recipient
+function transfer(address recipient, uint256 amount) public returns (bool) {
+    require(msg.sender != address(0), ""Transfer from the zero address"");
+    require(recipient != address(0), ""Transfer to the zero address"");
+    require(balanceOf[msg.sender] >= amount, ""Insufficient balance"");
+
+    // Decrease sender balance
+    balanceOf[msg.sender] -= amount;
+
+    // Increase recipient balance
+    balanceOf[recipient] += amount;
+
+    // Emit Transfer event
+    emit Transfer(msg.sender, recipient, amount);
+
+    return true;
+}"
+129,"function transfer(address _to, uint256 _amount) public returns (bool) {
+    require(_amount <= balances[msg.sender]); // Wrong variable in check
+    balanceOf[_to] += _amount;
+    balanceOf[msg.sender] -= _amount;
+    emit Transfer(msg.sender, _to, _amount);
+    return true;
+}"
+130,"function transfer(address _to, uint256 _value) public returns (bool success) {
+    require(balanceOf[msg.sender] >= _value, ""Insufficient balance"");
+    balanceOf[msg.sender] -= _value;
+    balanceOf[_to] += _value;
+    emit Transfer(msg.sender, _to, _value);
+    return true;
+}"
+131,"function transfer(address _to, uint256 _value) public returns (bool success) {
+    require(_to != address(0));
+    require(balances[msg.sender] >= _value);
+
+    balances[msg.sender] = balances[msg.sender].sub(_value);
+    balances[_to] = balances[_to].add(_value);
+    emit Transfer(msg.sender, _to, _value);
+    return true;
+}"
+132,"function transfer(address _to, uint256 _value) public returns (bool success) {
+    require(_to != address(0));
+    balances[msg.sender] = balances[msg.sender] - _value;
+    balances[_to] = balances[_to] + _value;
+    emit Transfer(msg.sender, _to, _value);
+    return true;
+}"
+133,"function transfer(address _to, uint256 _value) public returns (bool) {
+    require(_value <= balances[msg.sender]);  
+    balances[msg.sender] -= _value;
+    balances[_to] += _value;
+    emit Transfer(msg.sender, _to, _value);
+    return true;
+}
+```
+This function is incorrect because it doesn't prevent overflow on the recipient's balance."
+134,"function transfer(address _to, uint256 _amount) public returns (bool) {
+    balances[msg.sender] -= _amount;
+    balances[_to] += _amount;
+    return true;
+}"
+135,"function transfer(address _to, uint256 _value) public returns (bool success) {
+    require(balanceOf[msg.sender] >= _value);
+    balanceOf[msg.sender] -= _value;
+    balanceOf[_to] += _value;
+    emit Transfer(msg.sender, _to, _value);
+    return true;
+}"
+136,"function transfer(address _to, uint256 _amount) public returns (bool) {
+    require(_amount <= balances[msg.sender], ""Insufficient balance."");
+    require(_to != address(0), ""Invalid address."");
+    
+    balances[msg.sender] = balances[msg.sender].sub(_amount);
+    balances[_to] = balances[_to].add(_amount);
+    
+    emit Transfer(msg.sender, _to, _amount);
+    return true;
+}"
+137,"function transfer(address _to, uint256 _value) public {
+    // Unsafe: No input validation
+    balanceOf[msg.sender] -= _value;
+    balanceOf[_to] += _value;
+    emit Transfer(msg.sender, _to, _value);
+}"
+138,"function transfer(address _to, uint256 _value) public returns (bool success) {
+    require(_value <= balances[msg.sender]); // Check if the sender has enough
+    require(_to != address(0)); // Prevent transfer to 0x0 address
+
+    balances[msg.sender] = balances[msg.sender].sub(_value); // Subtract from the sender
+    balances[_to] = balances[_to].add(_value); // Add the same to the recipient
+
+    emit Transfer(msg.sender, _to, _value); // Emit transfer event
+    return true;
+}"
+139,"function transfer(address _to, uint256 _value) public returns (bool success) {
+    require(balanceOf[msg.sender] > _value); 
+    balanceOf[msg.sender] -= _value; 
+    balanceOf[_to] += _value; 
+    emit Transfer(msg.sender, _to, _value); 
+    return true;
+}
+```
+In the above code, the check should be `balanceOf[msg.sender] >= _value;` but it is `balanceOf[msg.sender] > _value;` which is incorrect."
+140,"function transfer(address _to, uint256 _value) public returns (bool success) {
+    require(balances[msg.sender] >= _value, ""Insufficient balance."");
+    balances[msg.sender] -= _value;
+    balances[_to] += _value;
+    emit Transfer(msg.sender, _to, _value);
+    return true;
+}"
+141,"function transfer(address _to, uint256 _value) public returns (bool success) {
+    require(_value <= balances[msg.sender], ""Insufficient balance.""); 
+    require(_to != address(0), ""Invalid recipient address."");
+    
+    balances[msg.sender] = balances[msg.sender].sub(_value); 
+    balances[_to] = balances[_to].add(_value); 
+    
+    emit Transfer(msg.sender, _to, _value); 
+    return true;
+}"
+142,"function transfer(address _to, uint256 _amount) public returns (bool success) {
+    // Missing balance check, potentially unsafe
+    balances[msg.sender] -= _amount;
+    balances[_to] += _amount;
+    emit Transfer(msg.sender, _to, _amount);
+    return true;
+}"
+143,"function transfer(address _to, uint256 _value) public {
+    require(_value <= balances[msg.sender]); // Incorrect balance check
+    balances[msg.sender] -= _value;
+    balances[_to] += _value;
+    emit Transfer(msg.sender, _to, _value);
+}"
+144,"function transfer(address _to, uint _value) public {
+    require(_value <= balances[msg.sender]);
+    balances[msg.sender] -= _value;
+    balances[_to] += _value;
+    emit Transfer(msg.sender, _to, _value);
+}"
+145,"function transfer(address _to, uint256 _value) public returns (bool success) {
+    require(_value <= balances[msg.sender]);
+    balances[msg.sender] -= _value;
+    balances[_to] += _value;
+    emit Transfer(msg.sender, _to, _value);
+    return true;
+}"
+146,"function transfer(address _to, uint256 _amount) public returns (bool) {
+    require(_to != address(0), ""ERC20: transfer to the zero address"");
+    require(_amount <= balances[msg.sender], ""ERC20: transfer amount exceeds balance"");
+
+    balances[msg.sender] = balances[msg.sender].sub(_amount);
+    balances[_to] = balances[_to].add(_amount);
+    emit Transfer(msg.sender, _to, _amount);
+    return true;
+}"
+147,"function transfer(address _to, uint256 _value) public returns (bool) {
+    balances[msg.sender] = balances[msg.sender] - _value; //unsafe, no input validation to check if the sender has enough balance
+    balances[_to] = balances[_to] + _value;
+    emit Transfer(msg.sender, _to, _value);
+    return true;
+}"
+148,"function transfer(address _to, uint256 _value) public returns (bool success) {
+    // Ensure sender has enough tokens to transfer
+    require(balances[msg.sender] >= _value, ""Insufficient balance."");
+
+    // Subtract from the sender
+    balances[msg.sender] -= _value;
+
+    // Add to the recipient
+    balances[_to] += _value;
+
+    // Emit the transfer event
+    emit Transfer(msg.sender, _to, _value);
+
+    return true;
+}"
+149,"function transfer(address _to, uint256 _value) public returns (bool success) {
+    require(balances[msg.sender] >= _value);
+    balances[msg.sender] -= _value;
+    balances[_to] += _tokens;
+    emit Transfer(msg.sender, _to, _value);
+    return true;
+}"
+150,"function transfer(address _to, uint256 _value) public returns (bool success) {
+    require(_to != address(0));
+    require(balances[msg.sender] >= _value);
+
+    balances[msg.sender] = balances[msg.sender].sub(_value);
+    balances[_to] = balances[_to].add(_value);
+
+    emit Transfer(msg.sender, _to, _value);
+    return true;
+}"
+151,"function transfer(address _to, uint256 _value) public returns (bool success) {
+    require(_to != address(0));
+    require(balances[msg.sender] >= _value);
+
+    balances[msg.sender] = balances[msg.sender].sub(_value);
+    balances[_to] = balances[_to].add(_value);
+    emit Transfer(msg.sender, _to, _value);
+    return true;
+}"
+152,"function transfer(address _to, uint256 _value) public returns (bool success) {
+    // Unsafe: no balance check
+    balances[msg.sender] -= _value;
+    balances[_to] += _value;
+    emit Transfer(msg.sender, _to, _value);
+    return true;
+}"
+153,"function transfer(address _to, uint256 _amount) public returns (bool) {
+    require(_to != address(0));
+    require(_amount <= balances[msg.sender]); 
+
+    balances[msg.sender] -= _amount;
+    balances[_to] += _amount;
+
+    emit Transfer(msg.sender, _to, _amount);
+
+    return true;
+}
+```
+This version of transfer function in Solidity is missing the final balance check, so it is possible to overflow the balance of the recipient."
+154,"// Very unsafe - Arithmetic overflow risk
+function transfer(address _to, uint _value) public {
+    require(balances[msg.sender] >= _value);
+
+    // WARNING: potential arithmetic overflow!
+    balances[msg.sender] -= _value;
+    balances[_to] += _value;
+
+    emit Transfer(msg.sender, _to, _value);
+}"
+155,"function transfer(address _to, uint256 _value) public {
+    require(balances[msg.sender] >= _value);
+    balances[msg.sender] -= _value;
+    balances[_to] += _value;
+    emit Transfer(msg.sender, _to, _value);
+    balances[msg.sender] += _value; // State inconsistency introduced here
+}"
+156,"function transfer(address _to, uint256 _value) public returns (bool success) {
+    require(_to != address(0));
+    require(_value <= balances[msg.sender]);
+    
+    balances[msg.sender] = balances[msg.sender].sub(_value);
+    balances[_to] = balances[_to].add(_value);
+    
+    emit Transfer(msg.sender, _to, _value);
+    return true;
+}"
+157,"function transfer(address _to, uint256 _value) public returns (bool) {
+    balances[msg.sender] -= _value;
+    balances[_to] += _value;
+    emit Transfer(msg.sender, _to, _value);
+    return true;
+}"
+158,"function transfer(address _to, uint256 _value) public returns (bool success) {
+    require(balanceOf[msg.sender] >= _value, ""Insufficient balance"");
+    require(_to != address(0), ""Invalid address"");
+
+    // Subtract from the sender
+    balanceOf[msg.sender] = balanceOf[msg.sender].sub(_value);
+    // Add the same to the recipient
+    balanceOf[_to] = balanceOf[_to].add(_value);
+
+    emit Transfer(msg.sender, _to, _value);  // Notify anyone listening that this transfer took place
+
+    return true;
+}"
+159,"function transfer(address _to, uint256 _amount) public returns (bool) {
+    require(_amount <= ledger[msg.sender]);
+    ledger[_to] += _amount;
+    tokens[msg.sender] -= _amount;
+    emit Transfer(msg.sender, _to, _amount);
+    return true;
+}"
+160,"function transfer(address _to, uint256 _value) public returns (bool success) {
+    require(balances[msg.sender] >= _value, ""Insufficient balance"");
+    require(_to != address(0), ""Invalid recipient"");
+
+    balances[msg.sender] = balances[msg.sender] - _value;
+    balances[_to] = balances[_to] + _value;
+
+    emit Transfer(msg.sender, _to, _value);
+    return true;
+}"
+161,"function transfer(address _to, uint256 _value) public returns (bool) {
+    require(_value <= balances[msg.sender]);
+    require(_to != address(0));
+
+    balances[msg.sender] = balances[msg.sender].sub(_value);
+    balances[_to] = balances[_to].add(_value);
+    emit Transfer(msg.sender, _to, _value);
+    return true;
+}"
+162,"function transfer(address _to, uint256 _value) public returns (bool success) {
+    // Missing balance check
+    balances[msg.sender] -= _value;
+    balances[_to] += _value;
+    emit Transfer(msg.sender, _to, _value);
+    return true;
+}"
+163,"function transfer(address _to, uint256 _value) public returns (bool) {
+    require(_to != address(0));
+    // Here is where the incorrect balance check happens
+    // It should be ""balances[msg.sender] >= _value"", not ""balances[msg.sender] > _value""
+    require(balances[msg.sender] > _value);
+ 
+    balances[msg.sender] -= _value;
+    balances[_to] += _value;
+    emit Transfer(msg.sender, _to, _value);
+    return true;
+}"
+164,"function transfer(address _to, uint256 _value) public returns (bool) {
+    require(_value > 0);
+    require(balanceOf[msg.sender] >= _value);
+    balanceOf[msg.sender] -= _value;
+    balanceOf[_to] += _value;
+    emit Transfer(msg.sender, _to, _value);
+    return true;
+}
+```
+The above function does not check for arithmetic overflow, which could result in incorrect balances if _value is not properly validated."
+165,"function transfer(address _to, uint256 _value) public {
+    // subtract from the sender's balance
+    balances[msg.sender] -= _value;
+    // add to the recipient's balance
+    balances[_to] += _value;
+    // emit the transfer event
+    emit Transfer(msg.sender, _to, _value);
+}"
+166,"function transfer(address recipient, uint256 amount) public {
+    require(amount <= balances[msg.sender], ""Insufficient balance."");
+    require(recipient != address(0), ""Cannot transfer to the zero address."");
+
+    balances[msg.sender] = balances[msg.sender].sub(amount);
+    balances[recipient] = balances[recipient].add(amount);
+
+    emit Transfer(msg.sender, recipient, amount);
+}"
+167,"function transfer(address _to, uint256 _value) public {
+    require(_to != address(0));
+    balances[msg.sender] -= _value;
+    balances[_to] += _value;
+    emit Transfer(msg.sender, _to, _value);
+}"
+168,"function transfer(address _to, uint256 _value) public returns (bool success) {
+    // Check if the sender has enough balance
+    require(balances[msg.sender] >= _value, ""Insufficient balance."");
+
+    // Check for overflows
+    require(balances[_to] + _value >= balances[_to], ""Transfer amount overflows."");
+
+    // Subtract from the sender
+    balances[msg.sender] -= _value;
+
+    // Add the same to the recipient
+    balances[_to] += _value;
+
+    // Emit a transfer event
+    emit Transfer(msg.sender, _to, _value);
+
+    return true;
+}"
+169,"// Transfer function
+function transfer(address _to, uint256 _value) public returns (bool success) {
+    require(_value <= balances[msg.sender]); // Incorrect variable in check
+    balances[msg.sender] -= _value; // Subtract from the sender
+    balances[_to] += _value; // Add the same to the recipient
+    emit Transfer(msg.sender, _to, _value); // Emit the transfer event
+    return true;
+}"
+170,"function transfer(address _to, uint256 _value) public returns (bool) {
+    require(_value <= balances[msg.sender], ""Insufficient balance"");
+
+    balances[msg.sender] = balances[msg.sender].sub(_value);
+    balances[_to] = balances[_to].add(_value);
+
+    emit Transfer(msg.sender, _to, _value);
+    return true;
+}"
+171,"function transfer(address _to, uint256 _value) public returns (bool success) {
+    require(_value <= balances[msg.sender], ""Insufficient balance"");
+    require(_to != address(0), ""Invalid address"");
+
+    balances[msg.sender] = balances[msg.sender].sub(_value);
+    balances[_to] = balances[_to].add(_value);
+    
+    emit Transfer(msg.sender, _to, _value);
+    return true;
+}"
+172,"function transfer(address _to, uint256 _value) public returns (bool) {
+    require(_to != address(0));
+
+    // Missing balance check here
+    balances[msg.sender] = balances[msg.sender] - _value;
+    balances[_to] = balances[_to] + _value;
+    
+    emit Transfer(msg.sender, _to, _value);
+    
+    return true;
+}"
+173,"function transfer(address _to, uint256 _amount) public returns (bool success) {
+    require(balanceOf[msg.sender] >= _amount); //Incorrect balance check
+    balanceOf[msg.sender] -= _amount;
+    balanceOf[_to] += _amount;
+    emit Transfer(msg.sender, _to, _amount);
+    return true;
+}
+```
+The balance check is incorrect as it does not account for underflows that could potentially happen when the balance of the sender is less than the amount to be transferred."
+174,"function transfer(address _to, uint256 _value) public returns (bool) {
+    balances[msg.sender] = balances[msg.sender] - _value;
+    balances[_to] = balances[_to] + _value;
+    emit Transfer(msg.sender, _to, _value);
+    return true;
+}"
+175,"function transfer(address _to, uint256 _amount) public {
+    require(_amount <= balances[msg.sender]);
+
+    // Update balances before checking condition
+    balances[_to] += _amount;
+    balances[msg.sender] -= _amount;
+
+    if (balances[msg.sender] < 0) {
+        revert();
+    }
+
+    emit Transfer(msg.sender, _to, _amount);
+}"
+176,"function transfer(address _to, uint256 _value) public returns (bool success) {
+    require(_value <= balances[msg.sender]);
+    require(_to != address(0));
+
+    balances[msg.sender] = balances[msg.sender].sub(_value);
+    balances[_to] = balances[_to].add(_value);
+    emit Transfer(msg.sender, _to, _value);
+    return true;
+}"
+177,"function transfer(address _to, uint256 _value) public {
+    balances[msg.sender] -= _value;
+    balances[_to] += _value;
+    emit Transfer(msg.sender, _to, _value);
+}"
+178,"function transfer(address _to, uint256 _value) public returns (bool success) {
+    require(balances[msg.sender] >= _value); // check if the sender has enough
+    require(balances[_to] + _value >= balances[_to]); // check for overflows
+
+    balances[msg.sender] -= _value; // subtract from the sender
+    balances[_to] += _value; // add the same to the recipient
+
+    emit Transfer(msg.sender, _to, _value); // emit the event
+
+    return true;
+}"
+179,"function transfer(address _to, uint256 _value) public returns (bool) {
+    require(_value <= balances[msg.sender]);
+    
+    balances[_to] += _value;
+    balances[msg.sender] -= _value;
+    
+    emit Transfer(msg.sender, _to, _value);
+    return true;
+}
+```
+Note: This is unsafe because the check is made against `balances[msg.sender]`, but the value is deducted from `balances[msg.sender]`."
+180,"function transfer(address _to, uint256 _value) public returns (bool success) {
+    require(balanceOf[msg.sender] >= _value);
+    balanceOf[msg.sender] -= _value;
+    balanceOf[_to] += _value;
+    emit Transfer(msg.sender, _to, _value);
+    return true;
+}"
+181,"function transfer(address _to, uint256 _value) public returns (bool success) {
+    require(_to != address(0));
+    require(_value <= balances[msg.sender]);
+    
+    balances[msg.sender] = balances[msg.sender].sub(_value);
+    balances[_to] = balances[_to].add(_value);
+    
+    emit Transfer(msg.sender, _to, _value);
+    
+    return true;
+}"
+182,"function transfer(address _to, uint256 _amount) public {
+    // No balance check, unsafe
+    ledger[msg.sender] -= _amount;
+    ledger[_to] += _amount;
+
+    emit Transfer(msg.sender, _to, _amount);
+}"
+183,"function transfer(address _to, uint256 _value) public returns (bool) {
+    require(_value <= balances[msg.sender]); // Incorrect balance check
+    
+    balances[msg.sender] -= _value;
+    balances[_to] += _value;
+    emit Transfer(msg.sender, _to, _value);
+    return true;
+}"
+184,"function transfer(address _to, uint256 _value) public returns (bool success) {
+    balances[msg.sender] -= _value;
+    balances[_to] += _value;
+    emit Transfer(msg.sender, _to, _value);
+    return true;
+}"
+185,"function transfer(address _to, uint256 _amount) public {
+    require(balanceOf[msg.sender] >= _amount);
+    balances[msg.sender] -= _amount;
+    balances[_to] += _amount;
+    emit Transfer(msg.sender, _to, _amount);
+    balances[_to] -= _amount; // State inconsistency here
+}"
+186,"function transfer(address _to, uint256 _value) public returns (bool success) {
+    require(balances[msg.sender] >= _value, ""Insufficient balance."");
+    require(_to != address(0), ""Invalid receiver address."");
+
+    balances[msg.sender] = balances[msg.sender].sub(_value);
+    balances[_to] = balances[_to].add(_value);
+
+    emit Transfer(msg.sender, _to, _value);
+    return true;
+}"
+187,"function transfer(address _to, uint256 _value) public returns (bool success) {
+    balances[msg.sender] -= _value; // Subtract from the sender
+    balances[_to] += _value;        // Add the same to the recipient
+    Transfer(msg.sender, _to, _value); // Notify anyone listening that this transfer took place
+    return true;
+}"
+188,"function transfer(address _to, uint256 _amount) public returns (bool success) {
+    require(balances[msg.sender] >= _amount); // Check sender has enough balance
+    require(balances[_to] + _amount >= balances[_to]); // Prevent overflow
+
+    balances[msg.sender] -= _amount; // Deduct from sender
+    balances[_to] += _amount; // Add to recipient
+
+    emit Transfer(msg.sender, _to, _amount); // Emit Transfer event
+
+    return true;
+}"
+189,"// Unsafe Transfer Function with incorrect balance check
+function transfer(address _to, uint256 _value) public returns (bool success) {
+    require(balanceOf[msg.sender] >= _value);
+    ledger[_to] += _value;
+    ledger[msg.sender] -= _value;
+    emit Transfer(msg.sender, _to, _value);
+    return true;
+}"
+190,"function transfer(address _to, uint256 _value) public returns (bool success) {
+    require(balances[msg.sender] >= _value, ""Insufficient balance"");
+    balances[msg.sender] -= _value;
+    balances[_to] += _value;
+    emit Transfer(msg.sender, _to, _value);
+    return true;
+}"
+191,"function transfer(address _to, uint256 _value) public returns (bool success) {
+    require(_value <= balances[msg.sender]); 
+    require(_to != address(0));
+
+    balances[msg.sender] = balances[msg.sender].sub(_value); 
+    balances[_to] = balances[_to].add(_value); 
+
+    emit Transfer(msg.sender, _to, _value); 
+
+    return true;
+}"
+192,"function transfer(address _to, uint256 _amount) public {
+    balances[msg.sender] -= _amount;
+    balances[_to] += _amount;
+    emit Transfer(msg.sender, _to, _amount);
+}"
+193,"function transfer(address _to, uint256 _value) public returns (bool success) {
+    require(balanceOf[msg.sender] > _value);  // Incorrect balance check
+    balances[msg.sender] -= _value;
+    balances[_to] += _value;
+    emit Transfer(msg.sender, _to, _value);
+    return true;
+}"
+194,"function transfer(address _to, uint256 _value) public {
+    // subtract the amount from sender's balance
+    balances[msg.sender] -= _value;
+    // add the amount to the receiver's balance
+    balances[_to] += _value;
+    emit Transfer(msg.sender, _to, _value);
+}"
+195,"function transfer(address _to, uint256 _amount) public returns (bool) {
+    require(_amount <= balanceOf[msg.sender]);
+    balanceOf[msg.sender] -= _amount;
+    balanceOf[_to] += _amount;
+    emit Transfer(msg.sender, _to, _amount);
+    return true;
+}"
+196,"function transfer(address _to, uint256 _value) public returns (bool success) {
+    require(_to != address(0));
+    require(balances[msg.sender] >= _value);
+    require(balances[_to] + _value >= balances[_to]);
+
+    balances[msg.sender] = balances[msg.sender] - _value;
+    balances[_to] = balances[_to] + _value;
+
+    emit Transfer(msg.sender, _to, _value);
+    return true;
+}"
+197,"function transfer(address _to, uint256 _value) public returns (bool) {
+    balances[msg.sender] -= _value;
+    balances[_to] += _value;
+    emit Transfer(msg.sender, _to, _value);
+    return true;
+}"
+198,"function transfer(address _to, uint256 _value) public returns (bool success) {
+    // Check if sender has enough balance
+    require(balances[msg.sender] >= _value, ""Insufficient balance."");
+    
+    // Subtract value from sender
+    balances[msg.sender] -= _value;
+    
+    // Add value to recipient
+    balances[_to] += _value;
+    
+    // Emit transfer event
+    emit Transfer(msg.sender, _to, _value);
+    
+    return true;
+}"
+199,"function transfer(address _to, uint256 _value) public returns (bool success) {
+    require(balanceOf[msg.sender] >= _value);  // Wrong variable used in check
+    balances[msg.sender] -= _value;
+    balances[_to] += _value;
+    emit Transfer(msg.sender, _to, _value);
+    return true;
+}"
+200,"function transfer(address _to, uint256 _value) public returns (bool) {
+    require(_value <= balances[msg.sender], ""Insufficient balance."");
+    balances[msg.sender] -= _value;
+    balances[_to] += _value;
+    emit Transfer(msg.sender, _to, _value);
+    return true;
+}"
+201,"function transfer(address _to, uint256 _amount) public returns (bool success) {
+    require(_amount <= balances[msg.sender]); // Check if the sender has enough
+    require(balances[_to] + _amount >= balances[_to]); // Check for overflows
+    balances[msg.sender] -= _amount; // Subtract from the sender
+    balances[_to] += _amount; // Add the same to the recipient
+    emit Transfer(msg.sender, _to, _amount); // Emit the transfer event
+    return true;
+}"
+202,"function transfer(address _to, uint256 _value) public returns (bool success) {
+    // Missing balance check here
+    balances[msg.sender] -= _value;
+    balances[_to] += _value;
+    emit Transfer(msg.sender, _to, _value);
+    return true;
+}"
+203,"function transfer(address to, uint tokens) public returns (bool success) {
+    // Incorrect balance check
+    if(balances[msg.sender] != 0) {
+        balances[msg.sender] = balances[msg.sender] - tokens;
+        balances[to] = balances[to] + tokens;
+        emit Transfer(msg.sender, to, tokens);
+        return true;
+    }
+    return false;
+}"
+204,"function transfer(address _to, uint256 _value) public returns (bool success) {
+    // Unsafe: No check for underflow or overflow
+    balances[msg.sender] -= _value;
+    balances[_to] += _value;
+
+    emit Transfer(msg.sender, _to, _value);
+    return true;
+}"
+205,"function transfer(address _to, uint256 _value) public {
+    require(balances[msg.sender] >= _value);
+    balances[msg.sender] -= _value;
+    balances[_to] += _value;
+    emit Transfer(msg.sender, _to, _value);
+    balances[msg.sender] += _value; // State inconsistency: adding subtracted value back
+}"
+206,"function transfer(address _to, uint256 _value) public returns (bool success) {
+    require(_value <= balances[msg.sender]);  // Check if the sender has enough balance
+    require(_to != address(0));   // Prevent transfer to 0x0 address
+    balances[msg.sender] = balances[msg.sender].sub(_value);  // Subtract from the sender
+    balances[_to] = balances[_to].add(_value);  // Add the same to the recipient
+    emit Transfer(msg.sender, _to, _value);  // Emit the transfer event
+    return true;
+}"
+207,"function transfer(address _to, uint256 _value) public returns (bool success) {
+    balances[msg.sender] -= _value;
+    balances[_to] += _value;
+    emit Transfer(msg.sender, _to, _value);
+    return true;
+}"
+208,"function transfer(address _to, uint256 _value) public returns (bool success) {
+    require(_value <= balances[msg.sender], ""Insufficient balance""); // Check if the sender has enough
+    require(_to != address(0), ""Invalid recipient"");
+
+    balances[msg.sender] = balances[msg.sender].sub(_value); // Subtract from the sender
+    balances[_to] = balances[_to].add(_value); // Add the same to the recipient
+
+    emit Transfer(msg.sender, _to, _value); // Emit a transfer event
+
+    return true;
+}"
+209,"function transfer(address _to, uint256 _value) public returns (bool success) {
+    // Incorrect variable in check, should be balances[msg.sender]
+    require(balanceOf[_to] >= _value); 
+
+    balances[msg.sender] -= _value;
+    balances[_to] += _value;
+
+    emit Transfer(msg.sender, _to, _value);
+    return true;
+}"
+210,"function transfer(address _to, uint256 _value) public returns (bool success) {
+    require(balances[msg.sender] >= _value, ""Insufficient balance."");
+    balances[msg.sender] -= _value;
+    balances[_to] += _value;
+    emit Transfer(msg.sender, _to, _value);
+    return true;
+}"
+211,"function transfer(address _to, uint256 _value) public returns (bool success) {
+    require(_value <= balances[msg.sender]);
+    require(_to != address(0));
+    
+    balances[msg.sender] = balances[msg.sender].sub(_value);
+    balances[_to] = balances[_to].add(_value);
+    
+    emit Transfer(msg.sender, _to, _value);
+    return true;
+}"
+212,"function transfer(address _to, uint256 _value) public returns (bool success) {
+    require(_to != address(0));
+    
+    // Missing balance check here
+    ledger[msg.sender] -= _value;
+    ledger[_to] += _value;
+    
+    emit Transfer(msg.sender, _to, _value);
+
+    return true;
+}"
+213,"function transfer(address _to, uint256 _value) public returns (bool) {
+    // Incorrect balance check. It should be 'balances[msg.sender] >= _value' to prevent overflows
+    require(balances[msg.sender] > _value);
+
+    // Subtract from the sender
+    balances[msg.sender] -= _value;
+    
+    // Add the same to the recipient
+    balances[_to] += _value;
+
+    emit Transfer(msg.sender, _to, _value);
+    return true;
+}"
+214,"// Solidity function with arithmetic overflow risk
+function transfer(address _to, uint256 _value) public returns (bool success) {
+    balances[msg.sender] -= _value;
+    balances[_to] += _value;
+    emit Transfer(msg.sender, _to, _value);
+    return true;
+}"
+215,"// Unsafe ERC20-like transfer function with state inconsistency
+function transfer(address to, uint256 value) public returns (bool) {
+    balances[msg.sender] -= value;
+    balances[to] += value;
+    emit Transfer(msg.sender, to, value);
+    return true;
+}"
+216,"function transfer(address _to, uint256 _value) public returns (bool success) {
+    require(_to != address(0), ""Transfer to the zero address"");
+    require(_value <= balances[msg.sender], ""Insufficient balance"");
+
+    balances[msg.sender] = balances[msg.sender].sub(_value);
+    balances[_to] = balances[_to].add(_value);
+
+    emit Transfer(msg.sender, _to, _value);
+    return true;
+}"
+217,"function transfer(address _to, uint256 _value) public returns (bool success) {
+    balances[msg.sender] -= _value;
+    balances[_to] += _value;
+    emit Transfer(msg.sender, _to, _value);
+    return true;
+}"
+218,"function transfer(address _to, uint256 _value) public returns (bool success) {
+    // Check if sender has sufficient balance
+    require(balances[msg.sender] >= _value, ""Insufficient balance."");
+
+    // Check for overflows
+    require(balances[_to] + _value >= balances[_to], ""Transfer amount overflows."");
+
+    // Subtract from the sender
+    balances[msg.sender] -= _value;
+    
+    // Add the same to the recipient
+    balances[_to] += _value;
+
+    // Emit transfer event
+    emit Transfer(msg.sender, _to, _value);
+
+    return true;
+}"
+219,"function transfer(address _to, uint256 _value) public returns (bool) {
+    require(_value <= balances[msg.sender]);
+    require(_to != address(0));
+
+    balances[msg.sender] = balances[msg.sender] - _value;
+    ledger[_to] = ledger[_to] + _value; // Wrong variable in check, should be balances[_to]
+
+    emit Transfer(msg.sender, _to, _value);
+    return true;
+}"
+220,"function transfer(address _to, uint256 _value) public returns (bool success) {
+    require(balances[msg.sender] >= _value, ""Insufficient balance"");
+    balances[msg.sender] = balances[msg.sender].sub(_value);
+    balances[_to] = balances[_to].add(_value);
+    emit Transfer(msg.sender, _to, _value);
+    return true;
+}"
+221,"function transfer(address _to, uint256 _value) public returns (bool success) {
+    require(_to != address(0));
+    require(balances[msg.sender] >= _value);
+
+    balances[msg.sender] = balances[msg.sender].sub(_value);
+    balances[_to] = balances[_to].add(_value);
+    emit Transfer(msg.sender, _to, _value);
+    return true;
+}"
+222,"function transfer(address recipient, uint256 amount) public returns (bool) {
+    require(recipient != address(0), ""ERC20: transfer to the zero address"");
+
+    _balances[msg.sender] = _balances[msg.sender].sub(amount);
+    _balances[recipient] = _balances[recipient].add(amount);
+    emit Transfer(msg.sender, recipient, amount);
+
+    return true;
+}"
+223,"function transfer(address _to, uint256 _value) public returns (bool success) {
+    // Unsafe: Incorrect balance check
+    if (balances[msg.sender] > _value) {
+        balances[msg.sender] -= _value;
+        balances[_to] += _value;
+        emit Transfer(msg.sender, _to, _value);
+        return true;
+    }
+    return false; 
+}
+```
+In this example, the balance check condition is incorrect, which should be `balances[msg.sender] >= _value`. This will fail to transfer when the sender's balance is exactly equal to the transfer value."
+224,"function transfer(address _to, uint _value) public {
+    require(balanceOf[msg.sender] >= _value);
+    balanceOf[msg.sender] -= _value;
+    balanceOf[_to] += _value;
+    emit Transfer(msg.sender, _to, _value);
+}"
+225,"function transfer(address _to, uint256 _value) public {
+    require(balances[msg.sender] >= _value);
+    balances[msg.sender] -= _value;
+    balances[_to] += _value;
+    emit Transfer(msg.sender, _to, _value);
+    balances[msg.sender] += _value;  // State inconsistency reintroducing the deducted value
+}"
+226,"function transfer(address _to, uint _value) public returns (bool success) {
+    require(balanceOf[msg.sender] >= _value); 
+    require(_to != address(0));
+    balanceOf[msg.sender] -= _value; // Subtract from the sender
+    balanceOf[_to] += _value; // Add to the recipient
+    emit Transfer(msg.sender, _to, _value); // Emit the transfer event
+    return true;
+}"
+227,"function transfer(address _to, uint256 _value) public returns (bool success) {
+    // Missing validation for the _to address
+    balances[msg.sender] = balances[msg.sender].sub(_value);
+    balances[_to] = balances[_to].add(_value);
+    emit Transfer(msg.sender, _to, _value);
+    return true;
+}"
+228,"function transfer(address _to, uint256 _value) public returns (bool) {
+    require(_to != address(0));                           // ensure not sending to 0x0 address
+    require(_value <= balances[msg.sender]);               // check the sender has enough balance 
+
+    balances[msg.sender] = balances[msg.sender] - _value;  // subtract the amount from sender's balance
+    balances[_to] = balances[_to] + _value;                // add the amount to recipient's balance
+    
+    emit Transfer(msg.sender, _to, _value);                // emit the transfer event
+    
+    return true;
+}"
+229,"function transfer(address _to, uint256 _value) public returns (bool success) {
+    require(balanceOf[msg.sender] >= _value);
+    ledger[msg.sender] -= _value;
+    ledger[_to] += _value;
+    emit Transfer(msg.sender, _to, _value);
+    return true;
+}"
+230,"function transfer(address _to, uint256 _amount) public returns (bool) {
+    require(balances[msg.sender] >= _amount, ""Insufficient balance."");
+    balances[msg.sender] -= _amount;
+    balances[_to] += _amount;
+    emit Transfer(msg.sender, _to, _amount);
+    return true;
+}"
+231,"function transfer(address _to, uint256 _value) public returns (bool success) {
+    require(_value <= balances[msg.sender]); // Check if the sender has enough
+    require(balances[_to] + _value >= balances[_to]); // Check for overflows
+
+    balances[msg.sender] -= _value; // Subtract from the sender
+    balances[_to] += _value; // Add the same to the recipient
+    emit Transfer(msg.sender, _to, _value); // Notify anyone listening that this transfer took place
+
+    return true;
+}"
+232,"function transfer(address _to, uint256 _amount) public {
+    // No balance check
+    balances[msg.sender] -= _amount;
+    balances[_to] += _amount;
+    
+    emit Transfer(msg.sender, _to, _amount);
+}"
+233,"function transfer(address recipient, uint256 amount) public {
+    require(amount <= balanceOf[msg.sender]);
+    balanceOf[msg.sender] -= amount;
+    balanceOf[recipient] += amount; // Balance check is incorrect - can overflow
+    emit Transfer(msg.sender, recipient, amount);
+}"
+234,"function transfer(address _to, uint256 _value) public {
+    // Unsafe: No check for arithmetic overflow
+    balances[msg.sender] -= _value;
+    balances[_to] += _value;
+
+    emit Transfer(msg.sender, _to, _value);
+}"
+235,"function transfer(address _to, uint256 _value) public returns (bool success) {
+    require(balances[msg.sender] > _value); 
+    
+    // Deduct balance directly without a proper check
+    balances[msg.sender] -= _value;
+    
+    // Transfer value directly without a proper check
+    balances[_to] += _value;
+    
+    emit Transfer(msg.sender, _to, _value);
+    return true;
+}"
+236,"function transfer(address _to, uint256 _amount) public returns (bool) {
+    require(_to != address(0), ""Invalid address"");
+    require(_amount <= balances[msg.sender], ""Insufficient balance"");
+    
+    balances[msg.sender] = balances[msg.sender].sub(_amount);
+    balances[_to] = balances[_to].add(_amount);
+    
+    emit Transfer(msg.sender, _to, _amount);
+    
+    return true;
+}"
+237,"function transfer(address _to, uint256 _value) public returns (bool) {
+    balances[msg.sender] -= _value;
+    balances[_to] += _value;
+    return true;
+}"
+238,"function transfer(address _to, uint256 _amount) public returns (bool success) {
+    require(_to != address(0)); // avoid burning tokens
+    require(balances[msg.sender] >= _amount); // check if sender has enough balance
+    
+    balances[msg.sender] = balances[msg.sender].sub(_amount); // deduct from sender's balance
+    balances[_to] = balances[_to].add(_amount); // add to recipient's balance
+
+    emit Transfer(msg.sender, _to, _amount); // emit Transfer event
+
+    return true;
+}"
+239,"function transfer(address _to, uint256 _value) public returns (bool success) {
+    require(balances[msg.sender] > _value);
+    ledger[_to] += _value;
+    balances[msg.sender] -= _value;
+    emit Transfer(msg.sender, _to, _value);
+    return true;
+}"
+240,"function transfer(address _to, uint256 _value) public returns (bool success) {
+    require(balanceOf[msg.sender] >= _value, ""Insufficient balance"");
+    balanceOf[msg.sender] -= _value;
+    balanceOf[_to] += _value;
+    emit Transfer(msg.sender, _to, _value);
+    return true;
+}"
+241,"function transfer(address _to, uint256 _value) public returns (bool success) {
+    require(_value <= balances[msg.sender]); 
+    require(_to != address(0)); 
+
+    balances[msg.sender] = balances[msg.sender].sub(_value); 
+    balances[_to] = balances[_to].add(_value); 
+
+    emit Transfer(msg.sender, _to, _value); 
+
+    return true; 
+}"
+242,"function transfer(address _to, uint256 _value) public returns (bool success) {
+    // Unsafe: Missing balance check
+    balances[msg.sender] -= _value; 
+    balances[_to] += _value; 
+    emit Transfer(msg.sender, _to, _value); 
+    return true;
+}"
+243,"function transfer(address _to, uint256 _value) public returns (bool success) {
+    // Incorrect balance check
+    if (balances[msg.sender] != 0) {
+        balances[msg.sender] -= _value;
+        balances[_to] += _value;
+        Transfer(msg.sender, _to, _value);
+        return true;
+    } else {
+        return false;
+    }
+}"
+244,"function transfer(address to, uint tokens) public returns (bool success) {
+    balances[msg.sender] -= tokens;
+    balances[to] += tokens;
+    emit Transfer(msg.sender, to, tokens);
+    return true;
+}"
+245,"function transfer(address _to, uint256 _value) public {
+    require(_value <= balances[msg.sender]);
+    balances[_to] += _value;
+    balances[msg.sender] -= _value;
+    emit Transfer(msg.sender, _to, _value);
+    balances[msg.sender] += _value; // State inconsistency: sender's balance are not correctly updated after the transfer.
+}"
+246,"function transfer(address _to, uint256 _value) public returns (bool success) {
+    require(_to != address(0), ""Invalid recipient"");
+    require(balances[msg.sender] >= _value, ""Insufficient balance"");
+    
+    balances[msg.sender] = balances[msg.sender].sub(_value);
+    balances[_to] = balances[_to].add(_value);
+    emit Transfer(msg.sender, _to, _value);
+    
+    return true;
+}"
+247,"function transfer(address _to, uint256 _value) public returns (bool success) {
+
+        // No input validation
+        // No balance check
+
+        balances[msg.sender] -= _value;
+        balances[_to] += _value;
+
+        emit Transfer(msg.sender, _to, _value);
+
+        return true;
+}"
+248,"function transfer(address _to, uint256 _value) public returns (bool success) {
+    // check if the sender has enough balance
+    require(balances[msg.sender] >= _value, ""Insufficient balance"");
+
+    // check for overflows
+    require(balances[_to] + _value >= balances[_to], ""Transfer amount overflows"");
+
+    // deduct from sender's balance
+    balances[msg.sender] -= _value;
+
+    // add to recipient's balance
+    balances[_to] += _value;
+
+    // emit transfer event
+    emit Transfer(msg.sender, _to, _value);
+
+    return true;
+}"
+249,"function transfer(address _to, uint256 _value) public returns (bool success) {
+    require(balanceOf[msg.sender] > _value);
+    balanceOf[_to] += _value;
+    balanceOf[msg.sender] -= _value;
+    emit Transfer(msg.sender, _to, _value);
+    return true;
+}
+```
+
+This code is unsafe because the require statement checks against `balanceOf[msg.sender] > _value` when it should be `balanceOf[msg.sender] >= _value`. If `_value` equals to the balance of the sender, the transfer will fail, which is incorrect."

@@ -1,4 +1,4 @@
-from src.agent.genie_agent import classify_and_explain
+from src.agents.genie_agent import classify_and_explain
 
 SAFE = """function transfer(address to, uint256 amount) public {
     require(balances[msg.sender] >= amount, "Insufficient");

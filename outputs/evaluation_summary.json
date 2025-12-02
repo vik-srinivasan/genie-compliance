@@ -1,0 +1,43 @@
+{
+  "baseline_vs_gold": {
+    "n_examples": 250,
+    "accuracy": 0.544,
+    "precision_safe": 0.544,
+    "recall_safe": 1.0,
+    "f1_safe": 0.705,
+    "confusion_matrix": {
+      "tp": 136,
+      "tn": 0,
+      "fp": 114,
+      "fn": 0
+    }
+  },
+  "genie_vs_gold": {
+    "n_examples": 250,
+    "accuracy": 0.544,
+    "precision_safe": 0.544,
+    "recall_safe": 1.0,
+    "f1_safe": 0.705,
+    "confusion_matrix": {
+      "tp": 136,
+      "tn": 0,
+      "fp": 114,
+      "fn": 0
+    }
+  },
+  "genie_vs_baseline": {
+    "n_examples": 250,
+    "agreement_rate": 1.0,
+    "baseline_safe_genie_unsafe": 0,
+    "baseline_unsafe_genie_safe": 0,
+    "disagreement_rate": 0.0
+  },
+  "summary": {
+    "baseline_accuracy": 0.544,
+    "genie_accuracy": 0.544,
+    "accuracy_improvement": 0.0,
+    "genie_f1": 0.705,
+    "baseline_f1": 0.705,
+    "f1_improvement": 0.0
+  }
+}

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contract Safety Chatbot</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🔒 Contract Safety Chatbot</h1>
+            <p>Analyze your Solidity contracts for safety and get help fixing issues</p>
+        </header>
+
+        <div class="main-content">
+            <!-- Contract Input Section -->
+            <div class="input-section">
+                <h2>Enter Your Contract Code</h2>
+                <textarea 
+                    id="contractInput" 
+                    placeholder="Paste your Solidity transfer function here...&#10;&#10;Example:&#10;function transfer(address to, uint256 amount) public {&#10;    require(balances[msg.sender] >= amount);&#10;    balances[msg.sender] -= amount;&#10;    balances[to] += amount;&#10;}"
+                    rows="10"
+                ></textarea>
+                <button id="analyzeBtn" class="btn-primary">Analyze Contract</button>
+            </div>
+
+            <!-- Classification Result Section -->
+            <div id="resultSection" class="result-section hidden">
+                <h2>Analysis Result</h2>
+                <div id="statusBadge" class="status-badge"></div>
+                <div id="reasoning" class="reasoning"></div>
+                <div id="evidenceSummary" class="evidence-summary"></div>
+            </div>
+
+            <!-- Chat Section -->
+            <div id="chatSection" class="chat-section hidden">
+                <h2>Chat with Assistant</h2>
+                <div id="chatMessages" class="chat-messages"></div>
+                <div class="chat-input-container">
+                    <input 
+                        type="text" 
+                        id="chatInput" 
+                        placeholder="Ask how to fix the issues..."
+                        class="chat-input"
+                    >
+                    <button id="sendBtn" class="btn-primary">Send</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>
+

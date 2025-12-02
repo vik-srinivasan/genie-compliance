@@ -1,5 +1,5 @@
 from src.utils.io import read_csv, write_csv
-from src.agent.genie_agent import classify_and_explain
+from src.agents.genie_agent import classify_and_explain
 from src.pipeline.inference_metrics import run as run_infer_metrics  # NEW
 import os
 
