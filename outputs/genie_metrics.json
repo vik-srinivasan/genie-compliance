@@ -1,13 +1,13 @@
 {
   "n_examples": 250,
-  "accuracy": 0.584,
+  "accuracy": 0.896,
   "precision_safe": 1.0,
-  "recall_safe": 0.235,
-  "f1_safe": 0.381,
+  "recall_safe": 0.809,
+  "f1_safe": 0.894,
   "confusion": {
-    "tp": 32,
+    "tp": 110,
     "tn": 114,
     "fp": 0,
-    "fn": 104
+    "fn": 26
   }
 }
